@@ -1,0 +1,200 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0d0d0d;
+  --surface: #161616;
+  --surface-hover: #1f1f1f;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #f0f0f0;
+  --muted: #888;
+  --accent: #a78bfa;
+  --accent-glow: rgba(167, 139, 250, 0.15);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft gradient background orb */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(167, 139, 250, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(96, 165, 250, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+main.card {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1.25rem 2rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Avatar */
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatar .fallback-text {
+  display: none;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.avatar.avatar-fallback img { display: none; }
+.avatar.avatar-fallback .fallback-text { display: block; }
+
+/* Name & Bio */
+.name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.bio {
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+/* Link buttons */
+.links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.link-btn:hover {
+  background: var(--surface-hover);
+  border-color: rgba(167, 139, 250, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.link-btn:hover::before {
+  opacity: 1;
+}
+
+.link-btn:active {
+  transform: translateY(0);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.link-btn:hover .arrow {
+  color: var(--accent);
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding-top: 3rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Entrance animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.avatar       { animation: fadeUp 0.4s ease both; }
+.name         { animation: fadeUp 0.4s 0.05s ease both; }
+.bio          { animation: fadeUp 0.4s 0.1s ease both; }
+.link-btn:nth-child(1) { animation: fadeUp 0.4s 0.15s ease both; }
+.link-btn:nth-child(2) { animation: fadeUp 0.4s 0.2s  ease both; }
+.link-btn:nth-child(3) { animation: fadeUp 0.4s 0.25s ease both; }
+.link-btn:nth-child(4) { animation: fadeUp 0.4s 0.3s  ease both; }
+.link-btn:nth-child(5) { animation: fadeUp 0.4s 0.35s ease both; }
+
+@media (max-width: 400px) {
+  main.card { padding: 2rem 1rem 1.5rem; }
+  .name { font-size: 1.25rem; }
+}
